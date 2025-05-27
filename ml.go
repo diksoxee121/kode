@@ -38,6 +38,30 @@ func validasiRole(input string) bool {
 	return false
 }
 
+func isiDataAwal() {
+	dataHero[0] = Hero{"Layla", Marksman, 2, 2500, 150, 51.3}
+	dataHero[1] = Hero{"Tigreal", Tank, 4, 4000, 100, 48.7}
+	dataHero[2] = Hero{"Fanny", Assassin, 9, 2200, 210, 45.1}
+	dataHero[3] = Hero{"Nana", Support, 3, 2700, 120, 55.4}
+	dataHero[4] = Hero{"Gusion", Assassin, 8, 2300, 200, 49.9}
+	dataHero[5] = Hero{"Lancelot", Assassin, 7, 2400, 195, 50.2}
+	dataHero[6] = Hero{"Alice", Mage, 6, 2600, 180, 53.0}
+	dataHero[7] = Hero{"Miya", Marksman, 2, 2450, 140, 52.5}
+	dataHero[8] = Hero{"Franco", Tank, 5, 4100, 110, 46.7}
+	dataHero[9] = Hero{"Eudora", Mage, 3, 2300, 175, 54.8}
+	dataHero[10] = Hero{"Aldous", Fighter, 6, 3000, 190, 49.2}
+	dataHero[11] = Hero{"Khufra", Tank, 7, 4200, 105, 47.5}
+	dataHero[12] = Hero{"Beatrix", Marksman, 8, 2500, 160, 50.9}
+	dataHero[13] = Hero{"Angela", Support, 4, 2600, 110, 56.2}
+	dataHero[14] = Hero{"Lylia", Mage, 7, 2200, 200, 53.9}
+	dataHero[15] = Hero{"X.Borg", Fighter, 5, 3100, 185, 48.4}
+	dataHero[16] = Hero{"Hayabusa", Assassin, 7, 2350, 205, 50.0}
+	dataHero[17] = Hero{"Cyclops", Mage, 3, 2400, 170, 54.1}
+	dataHero[18] = Hero{"Granger", Marksman, 6, 2600, 165, 51.7}
+	dataHero[19] = Hero{"Akai", Tank, 4, 4050, 95, 49.3}
+	jumlahHero = 20
+}
+
 func tambahHero() {
 	if jumlahHero >= maxHero {
 		fmt.Println("Data hero penuh.")
@@ -83,7 +107,8 @@ func tampilkanData() {
 	fmt.Println("=== Daftar Hero ===")
 	for i := 0; i < jumlahHero; i++ {
 		h := dataHero[i]
-		fmt.Printf("%d. %s | Role: %s | Kesulitan: %d | HP: %d | DMG: %d | Win Rate: %.1f%%\n", i+1, h.Nama, h.Role, h.TingkatKesulitan, h.HP, h.Damage, h.WinRate)
+		fmt.Printf("%d. %s | Role: %s | Kesulitan: %d | HP: %d | DMG: %d | Win Rate: %.1f%%\n",
+			i+1, h.Nama, h.Role, h.TingkatKesulitan, h.HP, h.Damage, h.WinRate)
 	}
 }
 
@@ -103,9 +128,9 @@ func binarySearch(nama string) int {
 		if strings.EqualFold(dataHero[mid].Nama, nama) {
 			return mid
 		} else if strings.ToLower(nama) < strings.ToLower(dataHero[mid].Nama) {
-			right--
+			right = mid - 1
 		} else {
-			left++
+			left = mid + 1
 		}
 	}
 	return -1
@@ -225,11 +250,12 @@ func menu() {
 		fmt.Print("Pilihan: ")
 		fmt.Scan(&pilihan)
 
-		if pilihan == 1 {
+		switch pilihan {
+		case 1:
 			tambahHero()
-		} else if pilihan == 2 {
+		case 2:
 			tampilkanData()
-		} else if pilihan == 3 {
+		case 3:
 			var nama string
 			fmt.Print("Masukkan nama hero: ")
 			fmt.Scan(&nama)
@@ -240,7 +266,7 @@ func menu() {
 			} else {
 				fmt.Println("Hero tidak ditemukan.")
 			}
-		} else if pilihan == 4 {
+		case 4:
 			selectionSortByNama(true)
 			var nama string
 			fmt.Print("Masukkan nama hero: ")
@@ -252,19 +278,21 @@ func menu() {
 			} else {
 				fmt.Println("Hero tidak ditemukan.")
 			}
-		} else if pilihan == 5 {
+		case 5:
 			editHero()
-		} else if pilihan == 6 {
+		case 6:
 			hapusHero()
-		} else if pilihan == 7 {
+		case 7:
 			menuUrut()
-		} else if pilihan != 8 {
+		case 8:
+			fmt.Println("Terima kasih telah menggunakan program.")
+		default:
 			fmt.Println("Pilihan tidak valid.")
 		}
 	}
-	fmt.Println("Terima kasih telah menggunakan program.")
 }
 
 func main() {
+	isiDataAwal()
 	menu()
 }
